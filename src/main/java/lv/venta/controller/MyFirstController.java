@@ -1,5 +1,7 @@
 package lv.venta.controller;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 import org.springframework.stereotype.Controller;
@@ -33,12 +35,23 @@ public class MyFirstController {
 	public String getControllerSendProduct(Model model) {
 		Product testProduct = new Product("Banana", 1.99f, "Eco, yellow", 5);
 		model.addAttribute("box", testProduct);
-		return "one-product-page";//it will show an one-product-page.html with test product (Banana, 1.99 eur ...)
+		return "show-one-product-page";//it will show a show-one-product-page.html with test product (Banana, 1.99 eur ...)
 		
 	}
-	//create new product
-	//add this product in model
-	//specify which html file should be showed
-	//create the html file
+	
+	@GetMapping("/testallproducts")//localhost:8080/testallproducts
+	public String getControllerSendMultipleProducts(Model model)
+	{
+		ArrayList<Product> allProducts = new ArrayList<Product>(
+				Arrays.asList(
+						new Product("Banana", 1.99f, "Eco, yellow", 5),
+						new Product("Grapes", 4.99f, "Purple", 10),
+						new Product("Watermelon", 5.99f, "Sweet", 2))
+				);
+		
+		model.addAttribute("box", allProducts);
+		return "show-all-product-page";//it will show a show-all-product-page.html with arraylist of products
+
+	}
 
 }

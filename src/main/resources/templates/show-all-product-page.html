@@ -1,0 +1,15 @@
+<html xmlns:th="https://www.thymeleaf.org">
+<body>
+	<p>All product from JAVA</p>
+
+	<table border="1">
+		<tr th:each="temp : ${box}">
+			<td th:text="${temp.id}"></td>
+			<td th:text="${temp.title}"></td>
+			<td th:text="${temp.price}"></td>
+			<td th:text="${temp.description}"></td>
+			<td th:text="${temp.quantity}"></td>
+		</tr>
+	</table>
+</body>
+</html>

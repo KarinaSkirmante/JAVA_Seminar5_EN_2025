@@ -49,13 +49,25 @@ public class ProductCRUDServiceImpl implements IProductCRUDService{
 
 	@Override
 	public void updateById(long id, float inputPrice, String inputDescription, int inputQuantity) throws Exception {
-		// TODO Auto-generated method stub
+		if(inputPrice < 0 || inputPrice > 1000
+				|| inputDescription == null || !inputDescription.matches("[A-Za-z0-9 ,.;:]+")
+				|| inputQuantity < 0 || inputQuantity > 100)
+		{
+			throw new Exception("Problems with input params");
+		}
+		Product productForUpdate = retreiveById(id);
+		productForUpdate.setPrice(inputPrice);
+		productForUpdate.setDescription(inputDescription);
+		productForUpdate.setQuantity(inputQuantity);
+		
+		prodRepo.save(productForUpdate);
 		
 	}
 
 	@Override
 	public void deleteById(long id) throws Exception {
-		// TODO Auto-generated method stub
+		Product productForDelete = retreiveById(id);
+		prodRepo.delete(productForDelete);
 		
 	}
 

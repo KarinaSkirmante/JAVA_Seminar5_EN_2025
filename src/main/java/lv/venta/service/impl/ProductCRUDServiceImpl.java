@@ -19,7 +19,22 @@ public class ProductCRUDServiceImpl implements IProductCRUDService{
 	@Override
 	public void create(String inputTitle, float inputPrice, String inputDescription, int inputQuantity)
 			throws Exception {
-		// TODO Auto-generated method stub
+		if(inputTitle == null || !inputTitle.matches("[A-Z]{1}[a-z ]{2,20}")
+				|| inputPrice < 0 || inputPrice > 1000
+				|| inputDescription == null || !inputDescription.matches("[A-Za-z0-9 ,.;:]+")
+				|| inputQuantity < 0 || inputQuantity > 100)
+		{
+			throw new Exception("Problems with input params");
+		}
+		
+		if(prodRepo.existsByTitleAndDescriptionAndPrice(inputTitle,inputDescription, inputPrice ))
+		{
+			//TODO need to finish
+		}
+		
+		
+		Product newProduct = new Product(inputTitle, inputPrice, inputDescription, inputQuantity);
+		prodRepo.save(newProduct);
 		
 	}
 

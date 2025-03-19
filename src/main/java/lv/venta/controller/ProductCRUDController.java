@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -23,6 +24,31 @@ public class ProductCRUDController {
 	
 	//CRUD
 	//C - create
+	@GetMapping("/create")//localhost:8080/product/crud/create
+	public String getControllerCreateNewProduct(Model model) {
+		Product newEmptyProduct = new Product();
+		model.addAttribute("product", newEmptyProduct);
+		return "create-product-page";//will show create-product-page.html with empty new product
+		
+	}
+	
+	@PostMapping("/create")
+	public String postControllerCreateNewProduct(Product product, Model model) {//get product from html
+		try {
+			prodService.create(product.getTitle(), product.getPrice(),
+					product.getDescription(), product.getQuantity());
+			return "redirect:/product/crud/all";
+		} catch (Exception e) {
+			model.addAttribute("box", e.getMessage());
+			return "error-page";//this will show error-page.html with Exception message
+
+		}
+		
+		
+	}
+	
+	
+	
 	//R - retrieve all
 	@GetMapping("/all")//localhost:8080/product/crud/all
 	public String getControllerAllProducts(Model model) {

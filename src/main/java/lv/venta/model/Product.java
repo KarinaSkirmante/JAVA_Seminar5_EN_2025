@@ -35,7 +35,7 @@ public class Product {
 	
 
 	@NotNull
-	@Pattern(regexp = "[A-Z]{1}[a-z ]{2,20}")
+	@Pattern(regexp = "[A-Z]{1}[a-z ]{2,20}", message = "Only letters are allowed and the first one should be capital. Size 2-20 ")
 	//@Size(min = 3, max = 21) <- I can use it if there is no min or max inside the regex
 	@Column(name = "Title")
 	private String title;

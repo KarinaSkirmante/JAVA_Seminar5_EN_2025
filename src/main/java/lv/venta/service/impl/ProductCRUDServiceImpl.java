@@ -29,12 +29,19 @@ public class ProductCRUDServiceImpl implements IProductCRUDService{
 		
 		if(prodRepo.existsByTitleAndDescriptionAndPrice(inputTitle,inputDescription, inputPrice ))
 		{
-			//TODO need to finish
+			Product retrieveProduct = 
+				prodRepo.findByTitleAndPriceAndDescription(inputTitle, inputPrice, inputDescription);
+			
+			int newQuantity = retrieveProduct.getQuantity() + inputQuantity;
+			retrieveProduct.setQuantity(newQuantity);
+			prodRepo.save(retrieveProduct);//this will update the product
 		}
 		
-		
-		Product newProduct = new Product(inputTitle, inputPrice, inputDescription, inputQuantity);
-		prodRepo.save(newProduct);
+		else
+		{
+			Product newProduct = new Product(inputTitle, inputPrice, inputDescription, inputQuantity);
+			prodRepo.save(newProduct);//this will save the new product
+		}
 		
 	}
 

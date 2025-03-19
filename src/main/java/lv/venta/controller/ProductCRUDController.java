@@ -106,6 +106,43 @@ public class ProductCRUDController {
 	
 	
 	//U - update by id
+	@GetMapping("/update/{id}") //localhost:8080/product/crud/update/3
+	public String getControllerUpdateProductById(@PathVariable(name = "id") long id, Model model) {
+		try
+		{
+			Product productForUpdating = prodService.retreiveById(id);
+			model.addAttribute("product", productForUpdating);
+			return "update-product-page";
+		}catch (Exception e) {
+			model.addAttribute("box", e.getMessage());
+			return "error-page";//this will show error-page.html with Exception message
+		}
+		
+	}
+	
+	@PostMapping("/update/{id}")
+	public String postControllerUpdateProductById // product is updated product from HTML
+	(@PathVariable(name = "id") long id, @Valid Product product, BindingResult result, Model model)
+	{
+		if(result.hasErrors()) {
+			return "update-product-page";
+		}
+		
+		try {
+			prodService.updateById(id, product.getPrice(), product.getDescription(), product.getQuantity());
+			return "redirect:/product/crud/all";
+		} catch (Exception e) {
+			model.addAttribute("box", e.getMessage());
+			return "error-page";//this will show error-page.html with Exception message
+
+		}
+
+		
+	}
+	
+	
+	
+	
 	//D - delete by id
 	
 	

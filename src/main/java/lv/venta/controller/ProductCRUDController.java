@@ -144,7 +144,21 @@ public class ProductCRUDController {
 	
 	
 	//D - delete by id
-	
+	@GetMapping("/delete/{id}")//localhost:8080/product/crud/delete/3
+	public String getControllerDeleteProductById(@PathVariable(name = "id") long id, Model model)
+	{
+		try {
+			prodService.deleteById(id);
+			model.addAttribute("box", prodService.retrieveAll());//will add products from DB in box
+			return "show-all-product-page";//show-all-product-page.html will be shown with products from DB
+
+		} catch (Exception e) {
+			model.addAttribute("box", e.getMessage());
+			return "error-page";//this will show error-page.html with Exception message
+
+		}
+		
+	}
 	
 	
 	

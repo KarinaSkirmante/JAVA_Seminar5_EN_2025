@@ -28,6 +28,21 @@ public interface IProductRepo extends CrudRepository<Product, Long> {
 			String inputDescription);
 
 
+	//this will create SQL query:
+	//SELECT * FROM product_table WHERE price < ?1;
+	//?1 -> priceThreshold
 	public abstract ArrayList<Product> findByPriceLessThanEqual(float priceThreshold);
+	
+	//this will create SQL query:
+	//SELECT * FROM product_table WHERE title LIKE ?1 OR description LIKE ?2;
+	//?1 -> text
+	//?2 -> text2
+	public abstract ArrayList<Product> findByTitleContainingIgnoreCaseOrDescriptionContainingIgnoreCase(String text,
+			String text2);
+
+	//this will create SQL query:
+	//SELECT * FROM product_table WHERE quantity > ?1;
+	//?1 -> quantityThreshold
+	public abstract ArrayList<Product> findByQuantityGreaterThanEqual(int quantityThreshold);
 
 }

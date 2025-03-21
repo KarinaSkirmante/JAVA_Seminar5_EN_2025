@@ -32,14 +32,35 @@ public class ProductFilterServiceImpl implements IProductFilterService {
 
 	@Override
 	public ArrayList<Product> retrieveAllProductsTitleOrDesciprtionContainsText(String text) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		if(text == null || text.length() == 0)
+		{
+			throw new Exception("There is a problem with searching text");
+		}
+		ArrayList<Product> result = 
+		prodRepo.findByTitleContainingIgnoreCaseOrDescriptionContainingIgnoreCase(text, text);
+		
+		if(result.isEmpty())
+		{
+			throw new Exception("There is no product that contains text: " + text);
+		}
+		return result;
 	}
 
 	@Override
 	public ArrayList<Product> retrieveAllproductsQuantityLargerThan(int quantityThreshold) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		if(quantityThreshold < 0 || quantityThreshold > 100)
+		{
+			throw new Exception("Qunatity can be 0 - 100");
+		}
+		ArrayList<Product> result = 
+				prodRepo.findByQuantityGreaterThanEqual(quantityThreshold);
+		
+		if(result.isEmpty())
+		{
+			throw new Exception("There is no product that quantity is larger than " + quantityThreshold );
+			
+		}
+		return result;
 	}
 
 }

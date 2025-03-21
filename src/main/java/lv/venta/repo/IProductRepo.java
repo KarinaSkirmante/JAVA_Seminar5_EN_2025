@@ -1,5 +1,7 @@
 package lv.venta.repo;
 
+import java.util.ArrayList;
+
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -24,5 +26,8 @@ public interface IProductRepo extends CrudRepository<Product, Long> {
 	//?3 -> inputDescription
 	public abstract Product findByTitleAndPriceAndDescription(String inputTitle, float inputPrice,
 			String inputDescription);
+
+
+	public abstract ArrayList<Product> findByPriceLessThanEqual(float priceThreshold);
 
 }

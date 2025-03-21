@@ -33,7 +33,7 @@ public class Seminar5Application {
 				System.out.println("One product:" + prodRepo.findById(3l).get());
 				
 				Product searchedProduct = prodRepo.findById(3l).get();
-				searchedProduct.setPrice(1.99f);
+				searchedProduct.setPrice(2.99f);
 				prodRepo.save(searchedProduct);
 				
 				

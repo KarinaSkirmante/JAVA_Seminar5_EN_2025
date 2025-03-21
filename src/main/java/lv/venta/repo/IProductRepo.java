@@ -2,6 +2,7 @@ package lv.venta.repo;
 
 import java.util.ArrayList;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -44,5 +45,12 @@ public interface IProductRepo extends CrudRepository<Product, Long> {
 	//SELECT * FROM product_table WHERE quantity > ?1;
 	//?1 -> quantityThreshold
 	public abstract ArrayList<Product> findByQuantityGreaterThanEqual(int quantityThreshold);
+
+	@Query(nativeQuery = true, value = "SELECT sum(quantity) FROM product_table;")
+	public abstract int calculateTotalQuantity();
+
+
+	@Query(nativeQuery = true, value = "SELECT sum(quantity*price) FROM product_table;")
+	public abstract int calculateTotalProductValues();
 
 }

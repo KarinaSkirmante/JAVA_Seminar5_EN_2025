@@ -6,10 +6,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import lv.venta.model.Product;
+import lv.venta.model.MyUser;
 
 
-public interface IProductRepo extends CrudRepository<Product, Long> {
+public interface IProductRepo extends CrudRepository<MyUser, Long> {
 
 	
 	//this will create SQL query: 
@@ -25,26 +25,26 @@ public interface IProductRepo extends CrudRepository<Product, Long> {
 	//?1 -> inputTitle
 	//?2 -> inputPrice
 	//?3 -> inputDescription
-	public abstract Product findByTitleAndPriceAndDescription(String inputTitle, float inputPrice,
+	public abstract MyUser findByTitleAndPriceAndDescription(String inputTitle, float inputPrice,
 			String inputDescription);
 
 
 	//this will create SQL query:
 	//SELECT * FROM product_table WHERE price < ?1;
 	//?1 -> priceThreshold
-	public abstract ArrayList<Product> findByPriceLessThanEqual(float priceThreshold);
+	public abstract ArrayList<MyUser> findByPriceLessThanEqual(float priceThreshold);
 	
 	//this will create SQL query:
 	//SELECT * FROM product_table WHERE title LIKE ?1 OR description LIKE ?2;
 	//?1 -> text
 	//?2 -> text2
-	public abstract ArrayList<Product> findByTitleContainingIgnoreCaseOrDescriptionContainingIgnoreCase(String text,
+	public abstract ArrayList<MyUser> findByTitleContainingIgnoreCaseOrDescriptionContainingIgnoreCase(String text,
 			String text2);
 
 	//this will create SQL query:
 	//SELECT * FROM product_table WHERE quantity > ?1;
 	//?1 -> quantityThreshold
-	public abstract ArrayList<Product> findByQuantityGreaterThanEqual(int quantityThreshold);
+	public abstract ArrayList<MyUser> findByQuantityGreaterThanEqual(int quantityThreshold);
 
 	@Query(nativeQuery = true, value = "SELECT sum(quantity) FROM product_table;")
 	public abstract int calculateTotalQuantity();

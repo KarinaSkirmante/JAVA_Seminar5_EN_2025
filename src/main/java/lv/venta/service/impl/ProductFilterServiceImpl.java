@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import lv.venta.model.Product;
+import lv.venta.model.MyUser;
 import lv.venta.repo.IProductRepo;
 import lv.venta.service.IProductFilterService;
 
@@ -17,12 +17,12 @@ public class ProductFilterServiceImpl implements IProductFilterService {
 	
 	
 	@Override
-	public ArrayList<Product> retrieveAllProductsPriceLessThan(float priceThreshold) throws Exception {
+	public ArrayList<MyUser> retrieveAllProductsPriceLessThan(float priceThreshold) throws Exception {
 		if(priceThreshold < 0 || priceThreshold > 1000)
 		{
 			throw new Exception("Price can be 0 - 1000");
 		}
-		ArrayList<Product> result = prodRepo.findByPriceLessThanEqual(priceThreshold);
+		ArrayList<MyUser> result = prodRepo.findByPriceLessThanEqual(priceThreshold);
 		if(result.isEmpty())
 		{
 			throw new Exception("There is no product that price is smaller than " + priceThreshold + " eur");
@@ -31,12 +31,12 @@ public class ProductFilterServiceImpl implements IProductFilterService {
 	}
 
 	@Override
-	public ArrayList<Product> retrieveAllProductsTitleOrDesciprtionContainsText(String text) throws Exception {
+	public ArrayList<MyUser> retrieveAllProductsTitleOrDesciprtionContainsText(String text) throws Exception {
 		if(text == null || text.length() == 0)
 		{
 			throw new Exception("There is a problem with searching text");
 		}
-		ArrayList<Product> result = 
+		ArrayList<MyUser> result = 
 		prodRepo.findByTitleContainingIgnoreCaseOrDescriptionContainingIgnoreCase(text, text);
 		
 		if(result.isEmpty())
@@ -47,12 +47,12 @@ public class ProductFilterServiceImpl implements IProductFilterService {
 	}
 
 	@Override
-	public ArrayList<Product> retrieveAllproductsQuantityLargerThan(int quantityThreshold) throws Exception {
+	public ArrayList<MyUser> retrieveAllproductsQuantityLargerThan(int quantityThreshold) throws Exception {
 		if(quantityThreshold < 0 || quantityThreshold > 100)
 		{
 			throw new Exception("Qunatity can be 0 - 100");
 		}
-		ArrayList<Product> result = 
+		ArrayList<MyUser> result = 
 				prodRepo.findByQuantityGreaterThanEqual(quantityThreshold);
 		
 		if(result.isEmpty())

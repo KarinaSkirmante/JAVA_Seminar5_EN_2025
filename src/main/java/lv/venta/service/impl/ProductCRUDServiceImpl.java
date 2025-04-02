@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import lv.venta.model.Product;
+import lv.venta.model.MyUser;
 import lv.venta.repo.IProductRepo;
 import lv.venta.service.IProductCRUDService;
 
@@ -29,7 +29,7 @@ public class ProductCRUDServiceImpl implements IProductCRUDService{
 		
 		if(prodRepo.existsByTitleAndDescriptionAndPrice(inputTitle,inputDescription, inputPrice ))
 		{
-			Product retrieveProduct = 
+			MyUser retrieveProduct = 
 				prodRepo.findByTitleAndPriceAndDescription(inputTitle, inputPrice, inputDescription);
 			
 			int newQuantity = retrieveProduct.getQuantity() + inputQuantity;
@@ -39,23 +39,23 @@ public class ProductCRUDServiceImpl implements IProductCRUDService{
 		
 		else
 		{
-			Product newProduct = new Product(inputTitle, inputPrice, inputDescription, inputQuantity);
+			MyUser newProduct = new MyUser(inputTitle, inputPrice, inputDescription, inputQuantity);
 			prodRepo.save(newProduct);//this will save the new product
 		}
 		
 	}
 
 	@Override
-	public ArrayList<Product> retrieveAll() throws Exception {
+	public ArrayList<MyUser> retrieveAll() throws Exception {
 		if(prodRepo.count() == 0) {
 			throw new Exception("The Product DB table is empty");
 		}
-		ArrayList<Product> allProducts = (ArrayList<Product>) prodRepo.findAll();
+		ArrayList<MyUser> allProducts = (ArrayList<MyUser>) prodRepo.findAll();
 		return allProducts;
 	}
 
 	@Override
-	public Product retreiveById(long id) throws Exception {
+	public MyUser retreiveById(long id) throws Exception {
 		//TODO
 		if(id <= 0)
 		{
@@ -65,7 +65,7 @@ public class ProductCRUDServiceImpl implements IProductCRUDService{
 			throw new Exception("The product with id " + id + " doesn't exist");
 		}
 		
-		Product oneProduct = prodRepo.findById(id).get();
+		MyUser oneProduct = prodRepo.findById(id).get();
 		return oneProduct;
 	}
 
@@ -77,7 +77,7 @@ public class ProductCRUDServiceImpl implements IProductCRUDService{
 		{
 			throw new Exception("Problems with input params");
 		}
-		Product productForUpdate = retreiveById(id);
+		MyUser productForUpdate = retreiveById(id);
 		productForUpdate.setPrice(inputPrice);
 		productForUpdate.setDescription(inputDescription);
 		productForUpdate.setQuantity(inputQuantity);
@@ -88,7 +88,7 @@ public class ProductCRUDServiceImpl implements IProductCRUDService{
 
 	@Override
 	public void deleteById(long id) throws Exception {
-		Product productForDelete = retreiveById(id);
+		MyUser productForDelete = retreiveById(id);
 		prodRepo.delete(productForDelete);
 		
 	}

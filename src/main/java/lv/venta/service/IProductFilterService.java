@@ -2,16 +2,16 @@ package lv.venta.service;
 
 import java.util.ArrayList;
 
-import lv.venta.model.Product;
+import lv.venta.model.MyUser;
 
 public interface IProductFilterService {
 
-	public abstract ArrayList<Product> retrieveAllProductsPriceLessThan(float priceThreshold)
+	public abstract ArrayList<MyUser> retrieveAllProductsPriceLessThan(float priceThreshold)
 	throws Exception;
 	
-	public abstract ArrayList<Product> retrieveAllProductsTitleOrDesciprtionContainsText(String text)
+	public abstract ArrayList<MyUser> retrieveAllProductsTitleOrDesciprtionContainsText(String text)
 	throws Exception;
 		
-	public abstract ArrayList<Product> retrieveAllproductsQuantityLargerThan(int quantityThreshold)
+	public abstract ArrayList<MyUser> retrieveAllproductsQuantityLargerThan(int quantityThreshold)
 	throws Exception;
 }

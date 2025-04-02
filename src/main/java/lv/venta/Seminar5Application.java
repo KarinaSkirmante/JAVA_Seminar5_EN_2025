@@ -5,7 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import lv.venta.model.Product;
+import lv.venta.model.MyUser;
 import lv.venta.repo.IProductRepo;
 
 @SpringBootApplication
@@ -21,9 +21,9 @@ public class Seminar5Application {
 			
 			@Override
 			public void run(String... args) throws Exception {
-				Product p1 = new Product("Banana", 1.99f, "Eco, yellow", 5);
-				Product p2 = new Product("Grapes", 4.99f, "Purple", 10);
-				Product p3 = new Product("Watermelon", 5.99f, "Sweet", 2);
+				MyUser p1 = new MyUser("Banana", 1.99f, "Eco, yellow", 5);
+				MyUser p2 = new MyUser("Grapes", 4.99f, "Purple", 10);
+				MyUser p3 = new MyUser("Watermelon", 5.99f, "Sweet", 2);
 				prodRepo.save(p1);
 				prodRepo.save(p2);
 				prodRepo.save(p3);
@@ -32,12 +32,12 @@ public class Seminar5Application {
 				System.out.println("All products:" + prodRepo.findAll());
 				System.out.println("One product:" + prodRepo.findById(3l).get());
 				
-				Product searchedProduct = prodRepo.findById(3l).get();
+				MyUser searchedProduct = prodRepo.findById(3l).get();
 				searchedProduct.setPrice(2.99f);
 				prodRepo.save(searchedProduct);
 				
 				
-				Product productForRemoving = prodRepo.findById(2l).get();
+				MyUser productForRemoving = prodRepo.findById(2l).get();
 				prodRepo.delete(productForRemoving);
 				
 			}

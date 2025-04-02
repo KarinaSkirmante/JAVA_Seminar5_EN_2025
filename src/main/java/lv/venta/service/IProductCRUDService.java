@@ -2,7 +2,7 @@ package lv.venta.service;
 
 import java.util.ArrayList;
 
-import lv.venta.model.Product;
+import lv.venta.model.MyUser;
 
 public interface IProductCRUDService {
 	//CRUD
@@ -12,10 +12,10 @@ public interface IProductCRUDService {
 			int inputQuantity) throws Exception ;
 	
 	//R - retrieve all
-	public abstract ArrayList<Product> retrieveAll() throws Exception;
+	public abstract ArrayList<MyUser> retrieveAll() throws Exception;
 	
 	//R - retrieve one by id
-	public abstract Product retreiveById(long id) throws Exception;
+	public abstract MyUser retreiveById(long id) throws Exception;
 	
 	//U - update
 	public abstract void updateById(long id, float inputPrice, String inputDescription, 

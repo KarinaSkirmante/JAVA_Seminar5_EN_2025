@@ -23,7 +23,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 
-@Table(name = "ProductTable") //mysql - product_table, H2 - PRODUCT_TABLE
+@Table(name = "MyUserTable") //mysql - product_table, H2 - MyUser_TABLE
 @Entity
 public class MyUser {
 	//1. variables
@@ -43,11 +43,6 @@ public class MyUser {
 	
 	
 	
-	@Min(0)
-	@Max(1000)
-	@Column(name = "Price")
-	private float price;
-	
 	@NotNull
 	@Pattern(regexp = "[A-Za-z0-9 ,.;:]+")
 	@Size(min = 5, max = 100)
@@ -63,11 +58,10 @@ public class MyUser {
 	//3. setters - lombok
 	//4. no argument constructor - lombok
 	//5. argument constructors
-	public MyUser(String inputTitle, float inputPrice, String inputDescription, 
+	public MyUser(String name, String surname, String inputDescription, 
 			int inputQuantity)
 	{
-		setTitle(inputTitle);
-		setPrice(inputPrice);
+		setTitle(name);
 		setDescription(inputDescription);
 		setQuantity(inputQuantity);
 	}

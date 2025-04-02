@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import lv.venta.model.MyUser;
+import lv.venta.model.Product;
 import lv.venta.service.IProductFilterService;
 import lv.venta.service.IProductStatisticsService;
 
@@ -31,7 +32,7 @@ public class ProductFilterAndStatController {
 			Model model)
 	{
 		try {
-			ArrayList<MyUser> filteredProducts = filtService.retrieveAllProductsPriceLessThan(threshold);
+			ArrayList<Product> filteredProducts = filtService.retrieveAllProductsPriceLessThan(threshold);
 			model.addAttribute("box", filteredProducts);//will add products from DB in box
 			return "show-all-product-page";//show-all-product-page.html will be shown with products from DB
 
@@ -52,7 +53,7 @@ public class ProductFilterAndStatController {
 			Model model)
 	{
 		try {
-			ArrayList<MyUser> filteredProducts = filtService.retrieveAllProductsTitleOrDesciprtionContainsText(text);
+			ArrayList<Product> filteredProducts = filtService.retrieveAllProductsTitleOrDesciprtionContainsText(text);
 			model.addAttribute("box", filteredProducts);//will add products from DB in box
 			return "show-all-product-page";//show-all-product-page.html will be shown with products from DB
 		} catch (Exception e) {

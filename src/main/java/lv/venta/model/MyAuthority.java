@@ -1,10 +1,13 @@
 package lv.venta.model;
 
+import java.util.Collection;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -32,6 +35,10 @@ public class MyAuthority {
 	@Pattern(regexp = "[A-Za-z ()]{4,40}")
 	@Column(name = "title")
 	private String title;
+	
+	@OneToMany(mappedBy = "authority")
+	private Collection<MyUser> users;
+	
 	
 	public MyAuthority(String inputTitle)
 	{

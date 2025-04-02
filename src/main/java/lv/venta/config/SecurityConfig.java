@@ -2,6 +2,7 @@ package lv.venta.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.User;
@@ -17,32 +18,27 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 	
 	@Bean
-	public UserDetailsManager createTestUsers() {
-		
+	public UserDetailsManager createManager() {
+		MyUserDetailsManagerService manager = new MyUserDetailsManagerService();
+		return manager;
+	}
+	
+	@Bean
+	public DaoAuthenticationProvider createProvider()
+	{
+		DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
 		PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
 		
-		UserDetails ud1 = User.builder()
-				.username("karina")
-				.password(encoder.encode("1234"))
-				.authorities("USER")
-				.build();
+		provider.setPasswordEncoder(encoder);
 		
-		UserDetails ud2 = User.builder()
-				.username("john")
-				.password(encoder.encode("qwerty"))
-				.authorities("USER")
-				.build();
+		UserDetailsManager manager = createManager();
+		provider.setUserDetailsService(manager);
 		
-		UserDetails ud3 = User.builder()
-				.username("admin")
-				.password(encoder.encode("9876"))
-				.authorities("ADMIN")
-				.build();
+		return provider;
 		
-		InMemoryUserDetailsManager imudManager = new InMemoryUserDetailsManager(ud1,ud2,ud3);
-		return imudManager;
-	
 	}
+	
+	
 	@Bean
 	public SecurityFilterChain configureEndpoints(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests(auth -> auth

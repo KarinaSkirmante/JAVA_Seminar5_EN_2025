@@ -1,12 +1,19 @@
 package lv.venta;
 
+import java.util.Arrays;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
+import lv.venta.model.MyAuthority;
 import lv.venta.model.MyUser;
 import lv.venta.model.Product;
+import lv.venta.repo.IMyAuthorityRepo;
+import lv.venta.repo.IMyUserRepo;
 import lv.venta.repo.IProductRepo;
 
 @SpringBootApplication
@@ -17,7 +24,8 @@ public class Seminar5Application {
 	}
 
 	@Bean
-	public CommandLineRunner testModel(IProductRepo prodRepo) {
+	public CommandLineRunner testModel(IProductRepo prodRepo, IMyAuthorityRepo authRepo, 
+			IMyUserRepo userRepo) {
 		return new CommandLineRunner() {
 			
 			@Override
@@ -40,7 +48,16 @@ public class Seminar5Application {
 				
 				Product productForRemoving = prodRepo.findById(2l).get();
 				prodRepo.delete(productForRemoving);
+				PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
 				
+				MyAuthority a1 = new MyAuthority("USER");
+				MyAuthority a2 = new MyAuthority("ADMIN");
+				authRepo.saveAll(Arrays.asList(a1, a2));
+				
+				MyUser u1 = new MyUser("karina", encoder.encode("1234"), a1);
+				MyUser u2 = new MyUser("john", encoder.encode("9876"), a1);
+				MyUser u3 = new MyUser("admin", encoder.encode("qwerty"), a2);
+				userRepo.saveAll(Arrays.asList(u1, u2, u3));
 			}
 		};
 	}

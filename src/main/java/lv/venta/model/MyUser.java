@@ -38,7 +38,7 @@ public class MyUser {
 	
 
 	@NotNull
-	@Pattern(regexp = "[A-Z]{1}[a-z ]{2,20}", message = "Only letters are allowed and the first one should be capital. Size 2-20 ")
+	@Pattern(regexp = "[a-z. ]{2,20}", message = "Only letters are allowed and the first one should be capital. Size 2-20 ")
 	//@Size(min = 3, max = 21) <- I can use it if there is no min or max inside the regex
 	@Column(name = "Username")
 	private String username;
@@ -64,10 +64,11 @@ public class MyUser {
 	
 	
 	
-	public MyUser(String username, String password)
+	public MyUser(String username, String password, MyAuthority auth)
 	{
 		setUsername(username);
 		setPassword(password);
+		setAuthority(auth);
 	}
 	//6. toString function - lombok
 	//7. other functions (if it is neccessary)

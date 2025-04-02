@@ -32,7 +32,7 @@ public class MyAuthority {
 	private Long aid;
 	
 	@NotNull
-	@Pattern(regexp = "[A-Za-z ()]{4,40}")
+	@Pattern(regexp = "[A-Z]{4,10}")
 	@Column(name = "title")
 	private String title;
 	

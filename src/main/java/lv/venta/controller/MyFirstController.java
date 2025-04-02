@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import lv.venta.model.Product;
+import lv.venta.model.MyUser;
 
 @Controller
 public class MyFirstController {
@@ -33,7 +33,7 @@ public class MyFirstController {
 	
 	@GetMapping("/testproduct")//localhost:8080/testproduct
 	public String getControllerSendProduct(Model model) {
-		Product testProduct = new Product("Banana", 1.99f, "Eco, yellow", 5);
+		MyUser testProduct = new MyUser("Banana", 1.99f, "Eco, yellow", 5);
 		model.addAttribute("box", testProduct);
 		return "show-one-product-page";//it will show a show-one-product-page.html with test product (Banana, 1.99 eur ...)
 		
@@ -42,11 +42,11 @@ public class MyFirstController {
 	@GetMapping("/testallproducts")//localhost:8080/testallproducts
 	public String getControllerSendMultipleProducts(Model model)
 	{
-		ArrayList<Product> allProducts = new ArrayList<Product>(
+		ArrayList<MyUser> allProducts = new ArrayList<MyUser>(
 				Arrays.asList(
-						new Product("Banana", 1.99f, "Eco, yellow", 5),
-						new Product("Grapes", 4.99f, "Purple", 10),
-						new Product("Watermelon", 5.99f, "Sweet", 2))
+						new MyUser("Banana", 1.99f, "Eco, yellow", 5),
+						new MyUser("Grapes", 4.99f, "Purple", 10),
+						new MyUser("Watermelon", 5.99f, "Sweet", 2))
 				);
 		
 		model.addAttribute("box", allProducts);

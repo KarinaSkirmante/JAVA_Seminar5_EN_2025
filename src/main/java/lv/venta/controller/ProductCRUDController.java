@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.validation.Valid;
-import lv.venta.model.Product;
+import lv.venta.model.MyUser;
 import lv.venta.service.IProductCRUDService;
 
 @Controller
@@ -28,7 +28,7 @@ public class ProductCRUDController {
 	//C - create
 	@GetMapping("/create")//localhost:8080/product/crud/create
 	public String getControllerCreateNewProduct(Model model) {
-		Product newEmptyProduct = new Product();
+		MyUser newEmptyProduct = new MyUser();
 		model.addAttribute("product", newEmptyProduct);
 		return "create-product-page";//will show create-product-page.html with empty new product
 		
@@ -36,14 +36,14 @@ public class ProductCRUDController {
 	
 	@PostMapping("/create")
 	public String postControllerCreateNewProduct
-	(@Valid Product product, BindingResult result,  Model model) {//get product from html
+	(@Valid MyUser myUser, BindingResult result,  Model model) {//get product from html
 		if(result.hasErrors()) {//is there any validation problem
 			return "create-product-page";
 		}
 		
 		try {
-			prodService.create(product.getTitle(), product.getPrice(),
-					product.getDescription(), product.getQuantity());
+			prodService.create(myUser.getTitle(), myUser.getPrice(),
+					myUser.getDescription(), myUser.getQuantity());
 			return "redirect:/product/crud/all";
 		} catch (Exception e) {
 			model.addAttribute("box", e.getMessage());
@@ -61,7 +61,7 @@ public class ProductCRUDController {
 	public String getControllerAllProducts(Model model) {
 		try
 		{
-			ArrayList<Product> allProducts = prodService.retrieveAll();
+			ArrayList<MyUser> allProducts = prodService.retrieveAll();
 			model.addAttribute("box", allProducts);//will add products from DB in box
 			return "show-all-product-page";//show-all-product-page.html will be shown with products from DB
 		}
@@ -76,7 +76,7 @@ public class ProductCRUDController {
 	{
 		try
 		{
-			Product oneProduct = prodService.retreiveById(id);
+			MyUser oneProduct = prodService.retreiveById(id);
 			model.addAttribute("box", oneProduct);//will add only one product in box
 			return "show-one-product-page";//this will show show-one-product-page.html with found product
 		}
@@ -93,7 +93,7 @@ public class ProductCRUDController {
 	{
 		try
 		{
-			Product oneProduct = prodService.retreiveById(id);
+			MyUser oneProduct = prodService.retreiveById(id);
 			model.addAttribute("box", oneProduct);//will add only one product in box
 			return "show-one-product-page";//this will show show-one-product-page.html with found product
 		}
@@ -110,7 +110,7 @@ public class ProductCRUDController {
 	public String getControllerUpdateProductById(@PathVariable(name = "id") long id, Model model) {
 		try
 		{
-			Product productForUpdating = prodService.retreiveById(id);
+			MyUser productForUpdating = prodService.retreiveById(id);
 			model.addAttribute("product", productForUpdating);
 			return "update-product-page";
 		}catch (Exception e) {
@@ -122,14 +122,14 @@ public class ProductCRUDController {
 	
 	@PostMapping("/update/{id}")
 	public String postControllerUpdateProductById // product is updated product from HTML
-	(@PathVariable(name = "id") long id, @Valid Product product, BindingResult result, Model model)
+	(@PathVariable(name = "id") long id, @Valid MyUser myUser, BindingResult result, Model model)
 	{
 		if(result.hasErrors()) {
 			return "update-product-page";
 		}
 		
 		try {
-			prodService.updateById(id, product.getPrice(), product.getDescription(), product.getQuantity());
+			prodService.updateById(id, myUser.getPrice(), myUser.getDescription(), myUser.getQuantity());
 			return "redirect:/product/crud/all";
 		} catch (Exception e) {
 			model.addAttribute("box", e.getMessage());
